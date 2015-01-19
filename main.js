@@ -74,7 +74,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
       });
     },
     open:function(){
-      var serialPort = new SerialPort(msg.path, msg.options, function(err){
+      var serialPort = new SerialPort.SerialPort(msg.path, msg.options, function(err){
         console.log(err);
         var resp = {};
         if (err){ resp.error = err.message; }
