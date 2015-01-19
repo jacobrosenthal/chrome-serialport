@@ -16,7 +16,7 @@ describe('SerialPort', function () {
     if(!port){ return done(); }
     port.close();
     port.on('close', function(){
-      done();
+      return done();
     });
   });
 
@@ -43,7 +43,6 @@ describe('SerialPort', function () {
 
     it('opens the port immediately', function (done) {
       port = new SerialPort('/dev/tty.usbmodem1411', function (err) {
-        console.log('opened', err);
         expect(err).to.not.be.ok;
         done();
       });
