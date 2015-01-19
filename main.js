@@ -59,6 +59,8 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
 //command channel
 chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
 
+  console.log(msg, sender, responder);
+
   var cmds = {
     getManifest:function(){
       var resp = {};
@@ -75,7 +77,6 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
       });
     },
     open:function(){
-      console.log(msg.op, msg.path, msg.options);
       serialPort = new SerialPort.SerialPort(msg.path, msg.options, function(err){
         console.log(err);
         var resp = {};
