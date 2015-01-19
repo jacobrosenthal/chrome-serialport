@@ -1,0 +1,22 @@
+{
+  "name": "chrome-serial",
+  "version": "0.0.1",
+  "description": "Exposes a chrome extension with serial permissions as a fully compliant node-serial interface",
+  "main": "lib/chrome-serial.js",
+  "dependencies": {
+    "browser-serialport": "^2.0.0"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "del": "^1.1.1",
+    "gulp": "^3.8.7",
+    "mocha": "^2.1.0",
+    "mocha-loader": "^0.7.1",
+    "sinon": "^1.12.2",
+    "webpack": "^1.4.15"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jacob Rosenthal"
+}
