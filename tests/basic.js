@@ -14,10 +14,15 @@ describe('SerialPort', function () {
   var port;
   afterEach(function (done) {
     if(!port){ return done(); }
-    port.close();
-    port.on('close', function(){
-      return done();
-    });
+
+    //closing on non open ports otherwise never returns...
+    port = null;
+    done();
+
+    // port.close();
+    // port.on('close', function(){
+    //   return done();
+    // });
   });
 
   describe('Factory', function () {
@@ -58,7 +63,7 @@ describe('SerialPort', function () {
       port = new SerialPort('/dev/johnJacobJingleheimerSchmidt');
     });
 
-    it.skip('emits an error on the serialport when explicit error handler present', function (done) {
+    it('emits an error on the serialport when explicit error handler present', function (done) {
       port = new SerialPort('/dev/johnJacobJingleheimerSchmidt');
 
       port.once('error', function(err) {
@@ -67,7 +72,7 @@ describe('SerialPort', function () {
       });
     });
 
-    it.skip('errors with invalid stopbits', function (done) {
+    it('errors with invalid stopbits', function (done) {
       var errorCallback = function (err) {
         chai.assert.isDefined(err, 'err is not defined');
         done();
@@ -76,7 +81,7 @@ describe('SerialPort', function () {
       port = new SerialPort('/dev/exists', { stopBits : 19 }, false, errorCallback);
     });
 
-    it.skip('errors with invalid stopbits', function (done) {
+    it('errors with invalid stopbits', function (done) {
       var errorCallback = function (err) {
         chai.assert.isDefined(err, 'err is not defined');
         done();
@@ -85,7 +90,7 @@ describe('SerialPort', function () {
       port = new SerialPort('/dev/exists', { stopBits : 19 }, false, errorCallback);
     });
 
-    it.skip('errors with invalid parity', function (done) {
+    it('errors with invalid parity', function (done) {
       var errorCallback = function (err) {
         chai.assert.isDefined(err, 'err is not defined');
         done();
@@ -94,7 +99,7 @@ describe('SerialPort', function () {
       port = new SerialPort('/dev/exists', { parity : 'something' }, false, errorCallback);
     });
 
-    it.skip('errors with invalid path', function (done) {
+    it('errors with invalid path', function (done) {
       var errorCallback = function (err) {
         chai.assert.isDefined(err, 'err is not defined');
         done();
@@ -103,7 +108,7 @@ describe('SerialPort', function () {
       port = new SerialPort(null, false, errorCallback);
     });
 
-    it.skip('allows optional options', function (done) {
+    it('allows optional options', function (done) {
       port = new SerialPort('/dev/exists', function () {});
       expect(typeof port.options).to.eq('object');
       done();
