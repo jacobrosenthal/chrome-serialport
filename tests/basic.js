@@ -42,7 +42,7 @@ describe('SerialPort', function () {
   describe('Constructor', function () {
 
     it('opens the port immediately', function (done) {
-      port = SerialPort('/dev/tty.usbmodem1411', function (err) {
+      port = new SerialPort('/dev/tty.usbmodem1411', function (err) {
         console.log('opened', err);
         expect(err).to.not.be.ok;
         done();
@@ -56,7 +56,7 @@ describe('SerialPort', function () {
         done();
       });
 
-      port = SerialPort('/dev/johnJacobJingleheimerSchmidt');
+      port = new SerialPort('/dev/johnJacobJingleheimerSchmidt');
     });
 
     it.skip('emits an error on the serialport when explicit error handler present', function (done) {
@@ -74,7 +74,7 @@ describe('SerialPort', function () {
         done();
       };
 
-      port = SerialPort('/dev/exists', { stopBits : 19 }, false, errorCallback);
+      port = new SerialPort('/dev/exists', { stopBits : 19 }, false, errorCallback);
     });
 
     it.skip('errors with invalid stopbits', function (done) {
