@@ -10,8 +10,8 @@
       "*"
     ],
     "matches": [ //external websites that can communicate with apps
-      "http://127.0.0.1/*"
-      ]},
+      "*://127.0.0.1/*"
+    ]},
    "manifest_version": 2,
    "name": "chrome-serialport",
    "permissions": [ "serial" ],
