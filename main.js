@@ -1,5 +1,6 @@
 var SerialPort = require('browser-serialport');
 
+//can't be global
 var serialPort;
 
 //data channel
@@ -74,7 +75,8 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
       });
     },
     open:function(){
-      var serialPort = new SerialPort.SerialPort(msg.path, msg.options, function(err){
+      console.log(msg.op, msg.path, msg.options);
+      serialPort = new SerialPort.SerialPort(msg.path, msg.options, function(err){
         console.log(err);
         var resp = {};
         if (err){ resp.error = err.message; }
