@@ -5,17 +5,17 @@ var serialPort;
 
 //data channel
 chrome.runtime.onConnectExternal.addListener(function(port) {
-  console.log(port, 'opened');
+  console.log('port opened');
 
   serialPort.on('open', function () {
-    console.log(port.name, 'opened');
+    console.log('serialport opened');
     var resp = {};
     resp.op = 'onOpen';
     port.postMessage(resp);
   });
 
   serialPort.on('disconnect', function (err) {
-    console.log(port.name, 'disconnected', err);
+    console.log('serialport disconnected', err);
     var resp = {};
     resp.op = 'onDisconnect';
     port.postMessage(resp);
@@ -23,21 +23,21 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
 
   //collapse into .error field?
   serialPort.on('error', function (err) {
-    console.log(port.name, 'errored', err);
+    console.log('serialport errored', err);
     var resp = {};
     resp.op = 'onError';
     port.postMessage(resp);
   });
 
   serialPort.on('close', function () {
-    console.log(port.name, 'closed');
+    console.log('serialport closed');
     var resp = {};
     resp.op = 'onClose';
     port.postMessage(resp);
   });
 
   serialPort.on('data', function (data) {
-    console.log(port.name, 'data');
+    console.log('serialport data');
     var resp = {};
     resp.op = 'data';
     resp.data = data;
@@ -45,12 +45,12 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
   });
 
   port.onMessage.addListener(function (msg) {
-    console.log(msg, 'received');
+    console.log('port received', msg);
     serialPort.write(msg);
   });
 
   port.onDisconnect.addListener(function () {
-    console.log(port, 'disconnected');
+    console.log('port disconnected');
     serialPort.close();
   });
 
@@ -69,7 +69,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     list:function(){
       SerialPort.list(function (err, data) {
-        console.log(err, data);
+        console.log(msg.op, err, data);
         var resp = {};
         if (err){ resp.error = err.message; }
         if (data){ resp.data = data; }
@@ -78,7 +78,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     open:function(){
       serialPort = new SerialPort.SerialPort(msg.path, msg.options, function(err){
-        console.log(err);
+        console.log(msg.op, err);
         var resp = {};
         if (err){ resp.error = err.message; }
         responder(resp);
@@ -86,7 +86,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     close:function(){
       serialPort.close(function (err){
-        console.log(err);
+        console.log(msg.op, err);
         var resp = {};
         if (err){ resp.error = err.message; }
         responder(resp);
@@ -94,7 +94,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     drain:function(){
       serialPort.drain(function (err, data){
-        console.log(err, data);
+        console.log(msg.op, err, data);
         var resp = {};
         if (err){ resp.error = err.message; }
         if (data){ resp.data = data; }
@@ -103,7 +103,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     flush:function(){
       serialPort.flush(function (err, data){
-        console.log(err, data);
+        console.log(msg.op, err, data);
         var resp = {};
         if (err){ resp.error = err.message; }
         if (data){ resp.data = data; }
