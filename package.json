@@ -16,7 +16,7 @@
     "webpack": "^1.4.15"
   },
   "scripts": {
-    "test": "gulp tests && beefy --index=index.html --cwd=tests/build/ 8080"
+    "test": "gulp && gulp tests && beefy --index=index.html --cwd=tests/build/ 8080"
   },
   "author": "Jacob Rosenthal"
 }

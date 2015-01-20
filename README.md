@@ -38,7 +38,7 @@ Then navigate to chrome://extensions/ and check developer mode in the upper righ
 
 ##tests
 ```js
-gulp tests && beefy --index=index.html --cwd=tests/build/ 8080
+npm test
 ```
 And load up http://127.0.0.1:8080/ in your browser
 
