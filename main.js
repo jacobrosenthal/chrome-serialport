@@ -5,7 +5,7 @@ var serialPort;
 
 //data channel
 chrome.runtime.onConnectExternal.addListener(function(port) {
-  console.log('port opened');
+  console.log('socket opened');
 
   serialPort.on('open', function () {
     console.log('serialport opened');
@@ -31,6 +31,7 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
 
   serialPort.on('close', function () {
     console.log('serialport closed');
+    // let other end emit close when it notices port disconnect
     var resp = {};
     resp.op = 'onClose';
     port.postMessage(resp);
@@ -45,12 +46,12 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
   });
 
   port.onMessage.addListener(function (msg) {
-    console.log('port received', msg);
+    console.log('socket received', msg);
     serialPort.write(msg);
   });
 
   port.onDisconnect.addListener(function () {
-    console.log('port disconnected');
+    console.log('socket disconnected');
     serialPort.close();
   });
 
@@ -69,16 +70,25 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     list:function(){
       SerialPort.list(function (err, data) {
-        console.log(msg.op, err, data);
+        console.log(msg.op, 'err:', err, data);
         var resp = {};
         if (err){ resp.error = err.message; }
         if (data){ resp.data = data; }
         responder(resp);
       });
     },
+    construct:function(){
+      console.log('construct');
+      var resp = {};
+      serialPort = new SerialPort.SerialPort(msg.path, msg.options, false, function(err){
+        console.log(msg.op, 'err:', err);
+        if (err){ resp.error = err.message; }
+      });
+      responder(resp);
+    },
     open:function(){
-      serialPort = new SerialPort.SerialPort(msg.path, msg.options, function(err){
-        console.log(msg.op, err);
+      serialPort.open(function(err){
+        console.log(msg.op, 'err:', err);
         var resp = {};
         if (err){ resp.error = err.message; }
         responder(resp);
@@ -86,7 +96,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     close:function(){
       serialPort.close(function (err){
-        console.log(msg.op, err);
+        console.log(msg.op, 'err:', err);
         var resp = {};
         if (err){ resp.error = err.message; }
         responder(resp);
@@ -94,7 +104,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     drain:function(){
       serialPort.drain(function (err, data){
-        console.log(msg.op, err, data);
+        console.log(msg.op, 'err:', err, data);
         var resp = {};
         if (err){ resp.error = err.message; }
         if (data){ resp.data = data; }
@@ -103,7 +113,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
     },
     flush:function(){
       serialPort.flush(function (err, data){
-        console.log(msg.op, err, data);
+        console.log(msg.op, 'err:', err, data);
         var resp = {};
         if (err){ resp.error = err.message; }
         if (data){ resp.data = data; }
