@@ -29,7 +29,7 @@ gulp.task('copy-tests', function() {
     .pipe(gulp.dest('./tests/build/'));
 });
 
-gulp.task('tests', ['clean-tests', 'bundle-tests', 'copy-tests']);
+gulp.task('tests', ['bundle-tests', 'copy-tests']);
 
 gulp.task('clean', function(cb) {
   del(['build'], cb);
