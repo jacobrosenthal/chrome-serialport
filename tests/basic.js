@@ -81,13 +81,13 @@ describe('SerialPort', function () {
       });
     });
 
-    it('errors with invalid stopbits', function (done) {
+    it('errors with invalid databits', function (done) {
       var errorCallback = function (err) {
         chai.assert.isDefined(err, 'err is not defined');
         done();
       };
 
-      port = new SerialPort(exists, { stopBits : 19 }, false, errorCallback);
+      port = new SerialPort(exists, { databits : 19 }, false, errorCallback);
     });
 
     it('errors with invalid stopbits', function (done) {
