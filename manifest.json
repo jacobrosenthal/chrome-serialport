@@ -4,11 +4,8 @@
          "scripts": [ "main.bundle.js"]
       }
    },
-   "description": "chrome-serialport",
-   "externally_connectable": { //external apps that can communicate with apps
-     "ids": [
-      "*"
-    ],
+   "description": "Exposes a node-serialport compliant interface to front end javascript",
+   "externally_connectable": { 
     "matches": [ //external websites that can communicate with apps
       "*://127.0.0.1/*"
     ]},

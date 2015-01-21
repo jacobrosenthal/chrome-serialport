@@ -1,7 +1,7 @@
 {
   "name": "chrome-serialport",
   "version": "0.0.1",
-  "description": "Exposes a chrome extension with serial permissions as a fully compliant node-serial interface",
+  "description": "Exposes a node-serialport compliant interface to front end javascript",
   "main": "lib/chrome-serial.js",
   "dependencies": {
     "browser-serialport": "^2.0.0"
@@ -18,5 +18,22 @@
   "scripts": {
     "test": "gulp && gulp tests && beefy --index=index.html --cwd=tests/build/ 8080"
   },
-  "author": "Jacob Rosenthal"
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/jacobrosenthal/chrome-serialport"
+  },
+  "bugs": {
+    "url": "https://github.com/jacobrosenthal/chrome-serialport/issues"
+  },
+  "keywords": [
+    "serial",
+    "firmata",
+    "nodebots",
+    "chromebots",
+    "browserbots",
+    "robot",
+    "robots"
+  ],
+  "author": "Jacob Rosenthal @jacobrosenthal",
+  "license": "MIT"
 }
