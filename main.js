@@ -1,3 +1,6 @@
+/*global chrome, document:false */
+'use strict';
+
 var SerialPort = require('browser-serialport');
 
 //can't be global
@@ -60,7 +63,7 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
 //command channel
 chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
 
-  console.log(msg, sender, responder);
+  console.log(msg);
 
   var cmds = {
     getManifest:function(){
@@ -131,7 +134,7 @@ chrome.runtime.onMessageExternal.addListener(function(msg, sender, responder) {
   return true; // required if we want to respond after the listener
 });
 
-chrome.app.runtime.onLaunched.addListener(function(data) {
+chrome.app.runtime.onLaunched.addListener(function() {
   var a = document.createElement('a');
   a.href = 'http://127.0.0.1:8080/';
   a.target='_blank';
