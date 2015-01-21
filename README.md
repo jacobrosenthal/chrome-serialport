@@ -1,4 +1,4 @@
-#chrome-serial
+#chrome-serialport
 Exposes a chrome extension with serial permissions as a fully compliant node-serial interface. Uses [Google Chrome Messaging](https://developer.chrome.com/extensions/messaging) to pass data from USB devices to front end code. 
 
 ##install
@@ -8,24 +8,23 @@ npm install chrome-serialport
 ```
 
 ##use
-Just like node-serialport
+Only one change to node-serialport, you need to set the extension id on the factory for the extension that you're communicating to. See below for more info on that.
 ```js
-var SerialPort = require("chrome-serialport").SerialPort
-var serialPort = new SerialPort("/dev/tty-usbserial1", {
-  baudrate: 57600
-});
-serialPort.on("open", function () {
-  console.log('open');
-  serialPort.on('data', function(data) {
-    console.log('data received: ' + data);
-  });
-  serialPort.write("ls\n", function(err, results) {
-    console.log('err ' + err);
-    console.log('results ' + results);
-  });
-});
-
+var SerialPortFactory = require('chrome-serialport');
+var SerialPort = SerialPortFactory.SerialPort;
+//only difference 
+SerialPortFactory.extensionId = 'glbcoioheoliejkddbfabekjgmebfbog';
 ```
+Theres one additional function not found in node-serialport. Its handy to know if the library could actually find your chrome extension
+```js
+SerialPortFactory.isInstalled(function(err){
+ if(err){
+   console.log(err);
+ }
+ console.log('Chrome extension installed!');
+});
+```
+Other than that we're working for 100% compatibility with [node-serial](https://github.com/voodootikigod/node-serialport) so see their docs.
 
 ##official chrome extension
 But you're not done there. You'll need our chrome extension installed. Find it in the store at xxx and you're all set, or build from scratch.
