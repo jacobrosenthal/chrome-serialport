@@ -50,7 +50,14 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
 
   port.onMessage.addListener(function (msg) {
     console.log('socket received', msg);
-    serialPort.write(msg);
+    //check for string as well? or force buffer sends from other side...
+    if(msg && msg.hasOwnProperty('data')){
+      var buffer = new Buffer(msg.data);
+      console.log('writing to serial', buffer.toString('utf-8'));
+      serialPort.write(buffer, function(err, results){
+        console.log(err, results);
+      });
+    }
   });
 
   port.onDisconnect.addListener(function () {
