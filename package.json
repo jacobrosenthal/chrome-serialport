@@ -4,7 +4,7 @@
   "description": "Exposes a node-serialport compliant interface to front end javascript",
   "main": "lib/chrome-serial.js",
   "dependencies": {
-    "browser-serialport": "^2.0.0"
+    "browser-serialport": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^1.10.0",
