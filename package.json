@@ -1,5 +1,5 @@
 {
-  "name": "chrome-serial",
+  "name": "chrome-serialport",
   "version": "0.0.1",
   "description": "Exposes a chrome extension with serial permissions as a fully compliant node-serial interface",
   "main": "lib/chrome-serial.js",
