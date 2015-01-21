@@ -62,6 +62,13 @@ describe('SerialPort', function () {
       });
     });
 
+    it('emits the open event', function (done) {
+      port = new SerialPort(exists);
+      port.on('open', function(){
+        done();
+      });
+    });
+
     it.skip('emits an error on the factory when erroring without a callback', function (done) {
       // finish the test on error
       SerialPortFactory.once('error', function (err) {

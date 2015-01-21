@@ -10,13 +10,6 @@ var serialPort;
 chrome.runtime.onConnectExternal.addListener(function(port) {
   console.log('socket opened');
 
-  serialPort.on('open', function () {
-    console.log('serialport opened');
-    var resp = {};
-    resp.op = 'onOpen';
-    port.postMessage(resp);
-  });
-
   serialPort.on('disconnect', function (err) {
     console.log('serialport disconnected', err);
     var resp = {};
