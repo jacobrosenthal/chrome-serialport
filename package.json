@@ -1,6 +1,6 @@
 {
   "name": "chrome-serialport",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Exposes a node-serialport compliant interface to front end javascript",
   "main": "lib/chrome-serial.js",
   "dependencies": {
@@ -18,7 +18,7 @@
   "scripts": {
     "test": "gulp && gulp tests && beefy --index=index.html --cwd=tests/build/ 8080"
   },
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/jacobrosenthal/chrome-serialport"
   },
