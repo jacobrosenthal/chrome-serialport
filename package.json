@@ -1,6 +1,6 @@
 {
   "name": "chrome-serialport",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Exposes a node-serialport compliant interface to front end javascript",
   "main": "lib/chrome-serial.js",
   "dependencies": {
